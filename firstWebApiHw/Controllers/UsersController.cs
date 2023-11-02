@@ -45,13 +45,14 @@ namespace firstWebApiHw.Controllers
             
         }
 
-
+        
         // POST api/<user>
         [HttpPost]
         public ActionResult<User> Post([FromBody] User user)
         {
             try { 
             User newUser = _userService.createNewUser(user);
+                //newUser
                 if(user!=null)
                return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
                 else // The 'else' here is not necessary; you can simply return a BadRequest.
