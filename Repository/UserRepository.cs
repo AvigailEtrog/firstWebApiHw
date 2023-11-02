@@ -6,6 +6,7 @@ namespace Repository
 {
     public class UserRepository : IUserRepository
     {
+        //rename the variable to filePath etc. (clean code) 
         string url = "../myUsers.txt";
         public async Task<User> getUserByUserNameAndPassword(string UserName, string Password)
         {
@@ -30,6 +31,7 @@ namespace Repository
         public User createNewUser(User user)
         {
             int numberOfUsers = System.IO.File.ReadLines(url).Count();
+            //change to UserId !
             user.userId = numberOfUsers + 1;
             string userJson = JsonSerializer.Serialize(user);
             System.IO.File.AppendAllText(url, userJson + Environment.NewLine);
