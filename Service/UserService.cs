@@ -17,14 +17,18 @@ namespace Service
         public User createNewUser(User user)
         {
             User newUser = _userRepository.createNewUser(user);
+            //You can return newUser directly, and if it's null, the method will return null by default.
             if (newUser != null) return newUser;
+            //Unnecessary else
             else return null;
         }
         public async Task<User> getUserByUserNameAndPassword(string UserName, string Password)
         {
 
             User newUser = await _userRepository.getUserByUserNameAndPassword(UserName, Password);
+            //You can return newUser directly, and if it's null, the method will return null by default.
             if (newUser != null) return newUser;
+            //Unnecessary else
             else return null;
         }
 

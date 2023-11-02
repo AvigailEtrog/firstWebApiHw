@@ -2,6 +2,7 @@
 
 namespace Service
 {
+    //Rename folder name to Services
     public interface IUserService
     {
         int checkPassword(string password);
