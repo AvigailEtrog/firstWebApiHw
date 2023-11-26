@@ -1,5 +1,6 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Repositories;
 using Repository;
 using Service;
@@ -17,7 +18,7 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddControllers();
- builder.Services.AddDbContext<SuperMarket214338766Context>(option => option.UseSqlServer("Data Source=SRV2\\PUPILS;Initial Catalog=SuperMarket214338766;Integrated Security=True"));
+builder.Services.AddDbContext<SuperMarket214338766Context>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("School")));
 builder.Services.AddSwaggerGen();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
