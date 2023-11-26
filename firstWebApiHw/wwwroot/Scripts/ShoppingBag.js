@@ -84,6 +84,7 @@ closeOrder = async() => {
 
         } catch (e) {
             alert(e)//you need to write specific eror!
+            //you can say error!
         }
     }
 
