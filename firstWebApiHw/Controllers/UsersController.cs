@@ -1,9 +1,6 @@
 ﻿using Service;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
-
-using System.Reflection.Metadata;
-using System.Text.Json;
 using DTO;
 using AutoMapper;
 
@@ -31,8 +28,8 @@ namespace firstWebApiHw.Controllers
             try
             {
                 User user = await _userService.getUserByUserNameAndPassword(User.UserName, User.Password);
-                UserIdNameDto UserIdDto = _mapper.Map<User, UserIdNameDto>(user);
-                return user != null ? Ok(UserIdDto) : Unauthorized();
+                UserIdNameDto UserIdNameDto = _mapper.Map<User, UserIdNameDto>(user);
+                return user != null ? Ok(UserIdNameDto) : Unauthorized();
             }
             catch (Exception ex)
             {
@@ -43,21 +40,19 @@ namespace firstWebApiHw.Controllers
 
         // POST api/<user>
         [HttpPost]
-        public async Task<ActionResult<UserDto>> Post([FromBody] UserDto UserDto)
+        public async Task<ActionResult<UserIdNameDto>> Post([FromBody] UserDto UserDto)
         {
             try {
             User user = _mapper.Map<UserDto,User>(UserDto);
             User newUser = await _userService.createNewUser(user);
-                return newUser != null ? CreatedAtAction(nameof(Get), new { id = UserDto.UserId }, UserDto) : BadRequest();
+            UserIdNameDto userIdNameDto = _mapper.Map<User, UserIdNameDto>(newUser);
+            return newUser != null ? CreatedAtAction(nameof(Get), new { id = userIdNameDto.UserId }, userIdNameDto) : BadRequest();
             }
             catch (Exception ex)
             {
 
                 throw new Exception(ex.Message);
             }
-
-
-
         }
         // GET api/<UsersController>/5
         [HttpGet("{id}")]

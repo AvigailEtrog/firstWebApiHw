@@ -78,7 +78,7 @@ closeOrder = async() => {
                     alert("error create this order,plase try again!")
                 else {
                     const data = await res.json();
-                    alert(`order ${data.OrderId} created succfully`)
+                    alert(`order ${data.orderId} created succfully`)
                 }
             
 

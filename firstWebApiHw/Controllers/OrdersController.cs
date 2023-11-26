@@ -27,15 +27,14 @@ namespace webApiShopSite.Controllers
             {
                 Order order = _mapper.Map<OrderDto, Order>(orderDto);
                 Order newOrder = await _orderService.createNewOrder(order);
-                return newOrder != null ? CreatedAtAction(nameof(Get), new { id = orderDto.UserId }, orderDto) :NoContent();
+                OrderDto returnOrder = _mapper.Map<Order, OrderDto>(newOrder);
+                return newOrder != null ? CreatedAtAction(nameof(Get), new { id = returnOrder.OrderId }, returnOrder) :NoContent();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
-
         // GET api/<Orders>/5
         [HttpGet("{id}")]
         public string Get(int id)

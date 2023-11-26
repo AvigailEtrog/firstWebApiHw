@@ -52,7 +52,7 @@ public partial class SuperMarket214338766Context : DbContext
 
             entity.Property(e => e.OrderId).HasColumnName("ORDER_ID");
             entity.Property(e => e.OrderDate)
-                .HasColumnType("date")
+                .HasPrecision(0)
                 .HasColumnName("ORDER_DATE");
             entity.Property(e => e.OrderSum)
                 .HasColumnType("money")
@@ -79,7 +79,7 @@ public partial class SuperMarket214338766Context : DbContext
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ORDER_ITEM_ORDERS");
+                .HasConstraintName("FK_ORDER_ITEM_ORDERS1");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.ProductId)

@@ -9,10 +9,10 @@ namespace webApiShopSite.wwwroot
     {
         public Mapper()
         {
-            CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Order, OrderDto>().ReverseMap();
-            CreateMap<OrderItem, OrderItemDto>();
-            CreateMap<Product, ProductDto>();
+            CreateMap<OrderItem, OrderItemDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserIdNameDto>();
         }
