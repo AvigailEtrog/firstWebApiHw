@@ -30,7 +30,7 @@ const register = async() =>{
         else 
         {
             const data = await res.json()
-            alert(`user ${data.userName} registered successfully`)
+            alert(`user ${data.firstName} registered successfully`)
             }
         }
     }
