@@ -1,6 +1,7 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NLog.Web;
 using Repositories;
 using Repository;
 using Service;
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<SuperMarket214338766Context>(option => option.UseS
 builder.Services.AddSwaggerGen();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Host.UseNLog();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

@@ -14,8 +14,11 @@ namespace webApiShopSite.Controllers
     {
         IProductService _productService;
         IMapper _mapper;
-        public ProductsController(IProductService productService,IMapper mapper)
+        private readonly ILogger<ProductsController> _logger;
+
+        public ProductsController(IProductService productService,IMapper mapper,ILogger<ProductsController> logger)
         {
+            _logger = logger;
             _productService = productService;
             _mapper = mapper;
         }
@@ -24,6 +27,7 @@ namespace webApiShopSite.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ProductDto>>> Get(string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
         {
+            _logger.LogInformation("The application  go up");
             List<Product> products = await _productService.getAllProducts(desc,  minPrice,maxPrice,  categoryIds);
             List<ProductDto> productsDtos = _mapper.Map<List<Product>, List<ProductDto>>(products);
             return products != null ? Ok(productsDtos) : BadRequest();

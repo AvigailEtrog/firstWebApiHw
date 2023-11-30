@@ -1,7 +1,6 @@
 
 const getAllProducts = async( desc,  minPrice,  maxPrice, categoryIds) => {
     try {
-      
         let url = `https://localhost:44354/api/Products`;
         if (desc || minPrice || maxPrice || categoryIds)url+=`?`
         if (desc) url += `&desc=${desc}`;
@@ -29,7 +28,7 @@ const getAllCategories = async () => {
 }
 const addToCart =(product) => {
     document.getElementById("ItemsCountText").innerText++;
-    if (sessionStorage.length == 0) sessionStorage.setItem("cart", "[]");
+    if (sessionStorage.cart == undefined) sessionStorage.setItem("cart", "[]");
     let cart = JSON.parse(sessionStorage.getItem("cart"));
     MYcart = [...cart, product]
     let myCart = JSON.stringify(MYcart);
@@ -37,8 +36,6 @@ const addToCart =(product) => {
 }
 
 const showProducts = async () => {
-  
-    
     const products = await getAllProducts();
     for (let i = 0; i < products.length;i++) {
         let tmp = document.getElementById("temp-card");
@@ -46,13 +43,15 @@ const showProducts = async () => {
         clone.querySelector("img").src = "./images/" + products[i].productImage;
         clone.querySelector("h1").innerText = products[i].productName;
         clone.querySelector(".description").innerText = products[i].productDescription
+        clone.querySelector(".category").innerText = products[i].categoryName;
         let btn = clone.querySelector("button");
         btn.addEventListener('click', () => { addToCart(products[i]) });
         clone.querySelector(".price").innerText = products[i].productPrice+"¤";
         document.getElementById("PoductList").appendChild(clone);
     }
+    if (sessionStorage.cart != undefined) { 
     document.getElementById("counter").innerText = products.length;
-    document.getElementById("ItemsCountText").innerText = (JSON.parse(sessionStorage.getItem("cart"))).length;
+    document.getElementById("ItemsCountText").innerText = (JSON.parse(sessionStorage.getItem("cart"))).length;}
     
 }
 const filterProducts = async () => {
@@ -92,11 +91,5 @@ const showCategories = async () => {
     }
 }
 const TrackLinkID = () => {
-    
     sessionStorage.getItem("user")?document.querySelector(".myAccount").href = "/Update.html":document.querySelector(".myAccount").href="/Login.html"
-        
-
-
-
-
 }

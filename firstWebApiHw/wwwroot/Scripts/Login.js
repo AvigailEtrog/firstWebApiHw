@@ -52,7 +52,7 @@ const login = async () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(UserNameAndPassword)
             })
-        if (res.status=='401')
+        if (!res.ok ||res.status=='401')
             window.alert("userName or password are not valid")
         else { 
             const user=await res.json()

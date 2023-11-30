@@ -3,6 +3,8 @@ using Entities;
 using Microsoft.AspNetCore.Mvc;
 using DTO;
 using AutoMapper;
+using webApiShopSite.Controllers;
+using Microsoft.Extensions.Logging;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,8 +16,10 @@ namespace firstWebApiHw.Controllers
     {
         IUserService _userService;
         IMapper _mapper;
-        public UsersController(IUserService userService,IMapper mapper)
+        private readonly ILogger<UsersController> _logger;
+        public UsersController(IUserService userService,IMapper mapper, ILogger<UsersController> logger)
         {
+            _logger = logger;
             _userService = userService;
             _mapper = mapper;
         }
@@ -27,12 +31,20 @@ namespace firstWebApiHw.Controllers
         {
             try
             {
+                
                 User user = await _userService.getUserByUserNameAndPassword(User.UserName, User.Password);
                 UserIdNameDto UserIdNameDto = _mapper.Map<User, UserIdNameDto>(user);
-                return user != null ? Ok(UserIdNameDto) : Unauthorized();
+                if (user != null)
+                {
+                    _logger.LogInformation($"Login attemped with userName  {user.UserName} and password {user.Password}");
+                    return Ok(UserIdNameDto);
+                }
+                else
+                    return Unauthorized();
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw new Exception(ex.Message);
             }  
         }

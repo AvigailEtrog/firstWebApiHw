@@ -12,9 +12,10 @@ namespace webApiShopSite.wwwroot
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Order, OrderDto>().ReverseMap();
             CreateMap<OrderItem, OrderItemDto>().ReverseMap();
-            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap().ForPath(p=>p.CategoryId,C=>C.MapFrom(d=>d.CategoryName));
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserIdNameDto>();
+
         }
 
     }
