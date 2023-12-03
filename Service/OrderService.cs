@@ -33,7 +33,7 @@ namespace Services
             {
                 orderSum += order.OrderItems.ElementAt(i).Quantity * productsOrder.ElementAt(i).ProductPrice;
             }
-            if(orderSum!=(double)order.OrderSum)
+            if(orderSum!=order.OrderSum)
             {
                 _logger.LogWarning($"user {order.UserId} try stole from superMarket instead pay {orderSum}$ he tried pay {order.OrderSum}");
                 return null;
