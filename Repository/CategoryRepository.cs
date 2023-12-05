@@ -17,7 +17,7 @@ namespace Repositories
             _superMarketContext = superMarketContext;
 
         }
-        public async Task<IEnumerable<Category>> getAllProducts()
+        public async Task<IEnumerable<Category>> getAllProductsAsync()
         {
             return await _superMarketContext.Categories.ToListAsync();
         }

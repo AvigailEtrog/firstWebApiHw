@@ -23,23 +23,19 @@ namespace webApiShopSite.Controllers
         [HttpPost]
         public async Task<ActionResult<OrderDto>> Post([FromBody] OrderDto orderDto)
         {
-            try
-            {
+            
                 Order order = _mapper.Map<OrderDto, Order>(orderDto);
-                Order newOrder = await _orderService.createNewOrder(order);
+                Order newOrder = await _orderService.createNewOrderAsync(order);
                 OrderDto returnOrder = _mapper.Map<Order, OrderDto>(newOrder);
                 return newOrder != null ? CreatedAtAction(nameof(Get), new { id = returnOrder.OrderId }, returnOrder) :NoContent();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
         }
         // GET api/<Orders>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<OrderDto>> Get(int id)
         {
-            return "value";
+            Order order = await _orderService.getOrderByIdAsync(id);
+            OrderDto orderDto = _mapper.Map<Order, OrderDto>(order);
+            return order != null ? Ok(orderDto) : BadRequest("user didnt found");
         }
 
     }

@@ -46,13 +46,12 @@ const showProducts = async () => {
         clone.querySelector(".category").innerText = products[i].categoryName;
         let btn = clone.querySelector("button");
         btn.addEventListener('click', () => { addToCart(products[i]) });
-        clone.querySelector(".price").innerText = products[i].productPrice+"¤";
+        clone.querySelector(".price").innerText = products[i].productPrice +"$";
         document.getElementById("PoductList").appendChild(clone);
     }
-    if (sessionStorage.cart != undefined) { 
     document.getElementById("counter").innerText = products.length;
-    document.getElementById("ItemsCountText").innerText = (JSON.parse(sessionStorage.getItem("cart"))).length;}
-    
+    if (sessionStorage.cart != undefined) { 
+    document.getElementById("ItemsCountText").innerText = (JSON.parse(sessionStorage.getItem("cart"))).length;} 
 }
 const filterProducts = async () => {
     let checkedCategories = [];
@@ -65,13 +64,14 @@ const filterProducts = async () => {
     let desc = document.getElementById("nameSearch").value;
     const products = await getAllProducts(desc, minPrice, maxPrice, checkedCategories);
     document.getElementById("PoductList").replaceChildren([]);
-    for (var i = 0; i < products.length; i++) {
+    for (let i = 0; i < products.length; i++) {
         let tmp = document.getElementById("temp-card");
         let clone = tmp.content.cloneNode(true);
         clone.querySelector("img").src = "./images/" + products[i].productImage;
         clone.querySelector("h1").innerText = products[i].productName;
         clone.querySelector(".description").innerText = products[i].productDescription
-        clone.querySelector(".price").innerText = products[i].productPrice + "¤";
+        clone.querySelector(".price").innerText = products[i].productPrice + "$";
+        clone.querySelector("button").addEventListener('click', () => { addToCart(products[i])});
         document.getElementById("PoductList").appendChild(clone);
     }
     document.getElementById("counter").innerText = products.length;
@@ -87,7 +87,6 @@ const showCategories = async () => {
         clone.querySelector("input").id = categories[i].categoryId;
         clone.querySelector(".OptionName").innerText = categories[i].categoryName;
         document.getElementById("categoryList").appendChild(clone);
-
     }
 }
 const TrackLinkID = () => {

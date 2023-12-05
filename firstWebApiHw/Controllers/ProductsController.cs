@@ -28,7 +28,7 @@ namespace webApiShopSite.Controllers
         public async Task<ActionResult<List<ProductDto>>> Get(string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
         {
             _logger.LogInformation("The application  go up");
-            List<Product> products = await _productService.getAllProducts(desc,  minPrice,maxPrice,  categoryIds);
+            List<Product> products = await _productService.getAllProductsAsync(desc,  minPrice,maxPrice,  categoryIds);
             List<ProductDto> productsDtos = _mapper.Map<List<Product>, List<ProductDto>>(products);
             return products != null ? Ok(productsDtos) : BadRequest();
         }

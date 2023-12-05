@@ -18,9 +18,9 @@ using System.Threading.Tasks;
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<IEnumerable<Category>> Get()
+        public async Task<IEnumerable<Category>> GetAsync()
         {
-            IEnumerable<Category> categories = await _categoryRepository.getAllProducts();
+            IEnumerable<Category> categories = await _categoryRepository.getAllProductsAsync();
             return categories != null ? categories : null;
             
 

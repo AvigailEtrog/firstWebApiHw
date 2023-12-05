@@ -20,7 +20,7 @@ namespace Services
             _productRepository = productRepository;
             _logger = logger;
         }
-        public async Task<Order> createNewOrder(Order order)
+        public async Task<Order> createNewOrderAsync(Order order)
         {
             double? orderSum = 0;
             int[] prouctsIds=new int[order.OrderItems.Count];
@@ -28,10 +28,10 @@ namespace Services
             {
                 prouctsIds[i] = order.OrderItems.ElementAt(i).ProductId;
             }
-            List<Product> productsOrder = await _productRepository.getCertainProducts(prouctsIds);
+            List<Product> productsOrder = await _productRepository.getCertainProductsAsync(prouctsIds);
             for (int i = 0; i < order.OrderItems.Count; i++)
             {
-                orderSum += order.OrderItems.ElementAt(i).Quantity * productsOrder.ElementAt(i).ProductPrice;
+                orderSum += order.OrderItems.ElementAt(i).Quantity * productsOrder.Find(p => p.ProductId == order.OrderItems.ElementAt(i).ProductId).ProductPrice;
             }
             if(orderSum!=order.OrderSum)
             {
@@ -39,8 +39,15 @@ namespace Services
                 return null;
             }
             else { 
-            Order newOrder = await _orderRepository.createNewOrder(order);
+            Order newOrder = await _orderRepository.createNewOrderAsync(order);
             return newOrder != null ? newOrder : null;}
+        }
+
+
+        public async Task<Order> getOrderByIdAsync(int id)
+        {
+            Order newOrder = await _orderRepository.getOrderByIdAsync(id);
+            return newOrder != null ? newOrder : null;
         }
     }
 }

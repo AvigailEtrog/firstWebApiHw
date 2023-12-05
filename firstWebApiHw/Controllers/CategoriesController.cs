@@ -27,7 +27,7 @@ namespace webApiShopSite.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
         {
-            IEnumerable<Category>categories=await _categoryService.Get();
+            IEnumerable<Category>categories=await _categoryService.GetAsync();
             IEnumerable<CategoryDto> categoriesDtos = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDto>>(categories);
             return categories != null ? Ok(categoriesDtos) : BadRequest();
         }

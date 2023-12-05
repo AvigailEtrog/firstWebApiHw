@@ -16,11 +16,15 @@ namespace Repositories
             _superMarketContext = superMarket214338766Context;
         }
 
-        public async Task<Order> createNewOrder(Order order)
+        public async Task<Order> createNewOrderAsync(Order order)
         {
             await _superMarketContext.Orders.AddAsync(order);
             await _superMarketContext.SaveChangesAsync();
             return order;
+        }
+        public async Task<Order> getOrderByIdAsync(int id)
+        {
+            return await _superMarketContext.Orders.FindAsync(id);
         }
 
     }

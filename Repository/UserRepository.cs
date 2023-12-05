@@ -13,18 +13,13 @@ namespace Repository
         public UserRepository(SuperMarket214338766Context superMarketContext)
         {
             _superMarketContext = superMarketContext;
-           
+
         }
 
-        public async Task<User> getUserByUserNameAndPassword(string UserName, string Password)
+        public async Task<User> getUserByUserNameAndPasswordAsync(string UserName, string Password)
         {
-            return await _superMarketContext.Users.Where(i =>  i.UserName == UserName && i.Password == Password).FirstOrDefaultAsync();
+            return await _superMarketContext.Users.Where(i => i.UserName == UserName && i.Password == Password).FirstOrDefaultAsync();
         }
-
-
-
-
-
         public async Task<User> createNewUser(User user)
         {
             await _superMarketContext.AddAsync(user);
@@ -32,7 +27,7 @@ namespace Repository
             return user;
         }
 
-        public async Task<User> update(int id, User userToUpdate)
+        public async Task<User> updateAsync(int id, User userToUpdate)
         {
             userToUpdate.UserId = id;
             _superMarketContext.Users.Update(userToUpdate); ;
@@ -41,7 +36,7 @@ namespace Repository
         }
 
 
-        public async Task<User> getUserById(int id)
+        public async Task<User> getUserByIdAsync(int id)
         {
             return await _superMarketContext.Users.FindAsync(id);
 

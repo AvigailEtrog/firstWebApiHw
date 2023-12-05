@@ -17,7 +17,7 @@ namespace Repositories
             _superMarketContext = superMarketContext;
 
         }
-        public async Task<List<Product>> getAllProducts(string?desc,int? minPrice,int? maxPrice,int?[] categoryIds)
+        public async Task<List<Product>> getAllProductsAsync(string?desc,int? minPrice,int? maxPrice,int?[] categoryIds)
         {
             var query = _superMarketContext.Products.Where(product =>
             (desc == null ? (true) : (product.ProductDescription.Contains(desc)))
@@ -28,7 +28,7 @@ namespace Repositories
             List<Product>products= await query.ToListAsync();
             return products;
         }
-        public async Task<List<Product>> getCertainProducts(int[] productsIds)
+        public async Task<List<Product>> getCertainProductsAsync(int[] productsIds)
         {
             var query = _superMarketContext.Products.Where(product => productsIds.Contains(product.ProductId));
             List<Product> products = await query.ToListAsync();

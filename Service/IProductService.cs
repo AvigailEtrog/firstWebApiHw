@@ -4,6 +4,6 @@ namespace Services
 {
     public interface IProductService
     {
-        Task<List<Product>> getAllProducts(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds);
+        Task<List<Product>> getAllProductsAsync(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds);
     }
 }

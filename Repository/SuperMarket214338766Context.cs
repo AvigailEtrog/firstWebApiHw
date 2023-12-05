@@ -10,13 +10,12 @@ public partial class SuperMarket214338766Context : DbContext
     public IConfiguration _configuration { get; }
     public SuperMarket214338766Context()
     {
-        
     }
 
     public SuperMarket214338766Context(DbContextOptions<SuperMarket214338766Context> options, IConfiguration configuration)
         : base(options)
     {
-        _configuration=configuration;
+        _configuration = configuration;
     }
 
     public virtual DbSet<Category> Categories { get; set; }
@@ -26,6 +25,8 @@ public partial class SuperMarket214338766Context : DbContext
     public virtual DbSet<OrderItem> OrderItems { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
+
+    public virtual DbSet<Rating> Ratings { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -50,7 +51,7 @@ public partial class SuperMarket214338766Context : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__ORDERS__460A9464AC144725");
+            entity.HasKey(e => e.OrderId).HasName("PK__ORDERS__460A9464501DD5B2");
 
             entity.ToTable("ORDERS");
 
@@ -58,9 +59,7 @@ public partial class SuperMarket214338766Context : DbContext
             entity.Property(e => e.OrderDate)
                 .HasPrecision(0)
                 .HasColumnName("ORDER_DATE");
-            entity.Property(e => e.OrderSum)
-                .HasColumnType("money")
-                .HasColumnName("ORDER_SUM");
+            entity.Property(e => e.OrderSum).HasColumnName("ORDER_SUM");
             entity.Property(e => e.UserId).HasColumnName("USER_ID");
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
@@ -71,7 +70,7 @@ public partial class SuperMarket214338766Context : DbContext
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
-            entity.HasKey(e => e.OrderItemId).HasName("PK__ORDER_IT__E15C4316D595EF0E");
+            entity.HasKey(e => e.OrderItemId).HasName("PK__ORDER_IT__E15C431696F25C8B");
 
             entity.ToTable("ORDER_ITEM");
 
@@ -117,6 +116,30 @@ public partial class SuperMarket214338766Context : DbContext
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Products__Catego__267ABA7A");
+        });
+
+        modelBuilder.Entity<Rating>(entity =>
+        {
+            entity.ToTable("RATING");
+
+            entity.Property(e => e.RatingId).HasColumnName("RATING_ID");
+            entity.Property(e => e.Host)
+                .HasMaxLength(50)
+                .HasColumnName("HOST");
+            entity.Property(e => e.Method)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("METHOD");
+            entity.Property(e => e.Path)
+                .HasMaxLength(50)
+                .HasColumnName("PATH");
+            entity.Property(e => e.RecordDate)
+                .HasColumnType("datetime")
+                .HasColumnName("Record_Date");
+            entity.Property(e => e.Referer)
+                .HasMaxLength(100)
+                .HasColumnName("REFERER");
+            entity.Property(e => e.UserAgent).HasColumnName("USER_AGENT");
         });
 
         modelBuilder.Entity<User>(entity =>

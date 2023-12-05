@@ -5,9 +5,9 @@ namespace Service
     public interface IUserService
     {
         int checkPassword(string password);
-        Task<User> createNewUser(User user);
-        Task<User> getUserById(int id);
-        Task<User> getUserByUserNameAndPassword(string UserName, string Password);
-        Task<User> update(int id, User userToUpdate);
+        Task<User> createNewUserAsync(User user);
+        Task<User> getUserByIdAsync(int id);
+        Task<User> getUserByUserNameAndPasswordAsync(string UserName, string Password);
+        Task<User> updateAsync(int id, User userToUpdate);
     }
 }

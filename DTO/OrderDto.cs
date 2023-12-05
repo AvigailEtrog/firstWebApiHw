@@ -12,7 +12,7 @@ namespace DTO
 
         public DateTime OrderDate { get; set; }
 
-        public decimal OrderSum { get; set; }
+        public double OrderSum { get; set; }
 
         public int UserId { get; set; }
 
