@@ -5,6 +5,7 @@ namespace DTO
     public class UserDto
     {
         public int UserId { get; set; }
+        [MaxLength(30)]
         [EmailAddress]
         [Required]
         public string? UserName { get; set; }
